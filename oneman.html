@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="001.ico">
+<meta charset="UTF-8">
+<meta property="fb:app_id" content="1567124940255337">
+<meta property="fb:admins" content="100002262180420"/>
+<title>一拳超人</title>
+<script>
+  var movies = new Array(
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XMWhVMm1ra090Z0k/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XdlhKUHZqUDUycDQ/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XTHNVLWtqdHhsRHM/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XbkJqOEFJMFJFNW8/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XRFpvNW1acmU1ZTg/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XM2FKT1BIbER5MHM/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XRGhMV1ZzTmZUQlk/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XdzAxaEhJQl9QLTg/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XZUR0aFRHSmFxd0k/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XZnIxTW94QzFlMWc/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XcEdFa1ZTdjVBdVk/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8XRWVTR1FpT0JwMG8/preview\' frameborder=\'0\' allowfullscreen></iframe>",
+  "<iframe width=\'560\' height=\'315\' src=\'https://docs.google.com/file/d/0Bzi5EPPZSR8Xd3lzVERieFpkd00/preview\' frameborder=\'0\' allowfullscreen></iframe>"
+  );
+  (function() {
+    var cx = '016836074880281678539:buz6ror3ioq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+  function loadmovie(movie)
+  {
+	  document.getElementById('movie').innerHTML=movie;
+  }
+  var snowmax=50
+// Set the colors for the snow. Add as many colors as you like
+var snowcolor=new Array("#ba55d3","#ffa500","#00ff00","#ffff00","#ff1493","#ffff00")
+// Set the fonts, that create the snowflakes. Add as many fonts as you like
+var snowtype=new Array("Times","Arial","Times","Verdana")
+// Set the letter that creates your snowflake (recommended: * )
+var snowletter="*"
+// Set the speed of sinking (recommended values range from 0.3 to 2)
+var sinkspeed=0.6
+// Set the maximum-size of your snowflakes
+var snowmaxsize=30
+// Set the minimal-size of your snowflakes
+var snowminsize=8
+// Set the snowing-zone
+// Set 1 for all-over-snowing, set 2 for left-side-snowing
+// Set 3 for center-snowing, set 4 for right-side-snowing
+var snowingzone=1
+///////////////////////////////////////////////////////////////////////////
+var snow=new Array()
+var marginbottom
+var marginright
+var timer
+var i_snow=0
+var x_mv=new Array();
+var crds=new Array();
+var lftrght=new Array();
+var browserinfos=navigator.userAgent
+var ie5=document.all&&document.getElementById&&!browserinfos.match(/Opera/)
+var ns6=document.getElementById&&!document.all
+var opera=browserinfos.match(/Opera/)
+var browserok=ie5||ns6||opera
+ 
+function randommaker(range) {
+        rand=Math.floor(range*Math.random())
+    return rand
+}
+ 
+function initsnow() {
+        if (ie5 || opera) {
+                marginbottom = document.body.scrollHeight
+                marginright = document.body.clientWidth-15
+        }
+        else if (ns6) {
+                marginbottom = document.body.scrollHeight
+                marginright = window.innerWidth-15
+        }
+        var snowsizerange=snowmaxsize-snowminsize
+        for (i=0;i<=snowmax;i++) {
+                crds[i] = 0;
+            lftrght[i] = Math.random()*15;
+            x_mv[i] = 0.03 + Math.random()/10;
+                snow[i]=document.getElementById("s"+i)
+                snow[i].style.fontFamily=snowtype[randommaker(snowtype.length)]
+                snow[i].size=randommaker(snowsizerange)+snowminsize
+                snow[i].style.fontSize=snow[i].size+'px';
+                snow[i].style.color=snowcolor[randommaker(snowcolor.length)]
+                snow[i].style.zIndex=1000
+                snow[i].sink=sinkspeed*snow[i].size/5
+                if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+                if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+                if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+                if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+                snow[i].posy=randommaker(2*marginbottom-marginbottom-2*snow[i].size)
+                snow[i].style.left=snow[i].posx+'px';
+                snow[i].style.top=snow[i].posy+'px';
+        }
+        movesnow()
+}
+ 
+function movesnow() {
+        for (i=0;i<=snowmax;i++) {
+                crds[i] += x_mv[i];
+                snow[i].posy+=snow[i].sink
+                snow[i].style.left=snow[i].posx+lftrght[i]*Math.sin(crds[i])+'px';
+                snow[i].style.top=snow[i].posy+'px';
+ 
+                if (snow[i].posy>=marginbottom-2*snow[i].size || parseInt(snow[i].style.left)>(marginright-3*lftrght[i])){
+                        if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+                        if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+                        if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+                        if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+                        snow[i].posy=0
+                }
+        }
+        var timer=setTimeout("movesnow()",50)
+}
+ 
+for (i=0;i<=snowmax;i++) {
+        document.write("<span id='s"+i+"' style='position:absolute;top:-"+snowmaxsize+"'>"+snowletter+"</span>")
+}
+if (browserok) {
+        window.onload=initsnow
+}
+</script>
+
+<style>
+body{
+	width:1024px;
+	margin:0 auto;
+	box-shadow:2px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+	border-left:1px solid #CCC;
+	border-right:1px solid #CCC;
+	Font-family:Microsoft YaHei;
+	background-color: rgb(250,240,250);
+  	}
+table, th{
+    margin: 1px;
+    border-radius:25px;
+    padding: 1px;
+}
+a {
+	text-decoration:none;
+	color:#360;
+}
+a:hover {
+	color:#030;
+	cursor:pointer;
+}
+ul li
+{
+	list-style:none;
+}
+</style>
+
+</head>
+
+<body>
+<p style="text-align:center;">
+<a href="index.html"><img src="title.jpg" alt="title.jpg" style="height:70px;"></a>
+</p>
+<gcse:search></gcse:search>
+<table style="margin:0 auto; margin-top:20px; width:90%; background:rgb(177,110,200);">
+	<th>
+    <h1><p style="color:#FFF;"><b>一拳超人</b></p></h1>
+    </th>
+ 	<tr align="center">
+    	<td><img style="img-align:center; width:90%; border:3px #FFF solid;" src="One_Punch.jpg" alt="One_Punch.jpg"></td>
+ 	</tr>
+    <tr>
+    	<td style="color:#FFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一拳超人, 一擊男, ワンパンマン, One-Punch Man</b><hr><blockquote>《一拳超人》（日語：ワンパンマン），又有譯作《一擊男》，是日本網絡漫畫家ONE的幽默格鬥漫畫，該作品以一個漫畫原稿軟體ComicStudio PC 製作，於2009年7月3日在ONE的個人網站開始連載，雖然畫功粗糙，但卻於日本網絡大熱，根據日本NHK2012年9月2日播出的「網絡漫畫革命」調查，《一拳超人》於該年觀看總數超過1000萬次，平均每天有高達20,000點擊。現在持續於ONE的網站連載中。</br></br>
+
+2012年初，漫畫家村田雄介在Twitter上與ONE討論合作創作「重製版」的構思。2012年6月14日，村田雄介以原作為藍本創作了「一拳超人﹣重製版」，英文名為「ONE PUNCH MAN re-make」，於集英社的網上漫畫雜誌Young Jump Web Comics上連載。集英社於2012年12月開始為「一拳超人﹣重製版」發行單行本。由東立出版社取得台灣代理。2015年15號Young Jump公開TV動畫化，並在同年的3月21日至3月22日開展的「Anime Japan 2015」公開詳細情報。7月23日電視動畫的官方網站正式宣布播出時間和播放電視台，將從10月開始在東京電視台等台播出。台灣由木棉花國際官網正式宣布與日本同步播出。</br></br>
+
+在讀賣新聞社主辦的SUGOI JAPAN Award 2015「最想向海外介紹的日本流行文化」評選中獲得漫畫部門第7名。</blockquote></td>
+    </tr>
+	<tr>
+		<td style="text-align:center;"><p style="color:gray;">本文章最後由 匿名 於 2016-6-1 08:42 編輯</p></td>
+	</tr>
+
+</table>
+
+<div style="text-align:center; margin:50px auto 20px;">
+<ul style="float:left; text-align:left; position:absolute;">
+	<li><a onClick="loadmovie(movies[0])">第一集</a></li>
+    <li><a onClick="loadmovie(movies[1])">第二集</a></li>
+    <li><a onClick="loadmovie(movies[2])">第三集</a></li>
+    <li><a onClick="loadmovie(movies[3])">第四集</a></li>
+    <li><a onClick="loadmovie(movies[4])">第五集</a></li>
+    <li><a onClick="loadmovie(movies[5])">第六集</a></li>
+    <li><a onClick="loadmovie(movies[6])">第七集</a></li>
+    <li><a onClick="loadmovie(movies[7])">第八集</a></li>
+    <li><a onClick="loadmovie(movies[8])">第九集</a></li>
+    <li><a onClick="loadmovie(movies[9])">第十集</a></li>
+    <li><a onClick="loadmovie(movies[10])">第十一集</a></li>
+    <li><a onClick="loadmovie(movies[11])">第十二集</a></li>
+    <li><a onClick="loadmovie(movies[12])">OVA1</a></li>
+</ul>
+<div id="movie" style="margin:0 auto;"><iframe width="560" height="315" src="https://docs.google.com/file/d/0Bzi5EPPZSR8XMWhVMm1ra090Z0k/preview" frameborder="0" allowfullscreen></iframe></div>
+</div>
+
+<table style="width:100%;">
+	<tr>
+		<td style="text-align:center;">
+			相關動畫：
+			<a href="one_piece.html">海賊王劇場版</a>
+		</td>
+	</tr>
+</table>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.6&appId=1567124940255337";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div style="text-align:center"><div class="fb-comments" data-href="http://wangbouang.comxa.com/2DGATE/oneman.html" data-width="500" data-numposts="3"></div></div>
+
+<p style="border:3px solid #666; color:#CCC; margin:0; padding:10px; background-color:#333;">注意事項:<br>1. 此網站是學術作業使用。<br>2.來源取自網路，若侵犯您的版權，請告知本人，將立即處理。</p>
+</body>
+</html>
