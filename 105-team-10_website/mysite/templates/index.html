@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" href="/static/image/001.ico">
+  <title >2D-sacred gate</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+  (function() {
+    var cx = '016836074880281678539:buz6ror3ioq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+  function loadmovie(id,movie)
+  {
+	  document.getElementById(id).innerHTML=movie;
+  }
+  var snowmax=50
+// Set the colors for the snow. Add as many colors as you like
+var snowcolor=new Array("#ba55d3","#ffa500","#00ff00","#ffff00","#ff1493","#ffff00")
+// Set the fonts, that create the snowflakes. Add as many fonts as you like
+var snowtype=new Array("Times","Arial","Times","Verdana")
+// Set the letter that creates your snowflake (recommended: * )
+var snowletter="*"
+// Set the speed of sinking (recommended values range from 0.3 to 2)
+var sinkspeed=0.6
+// Set the maximum-size of your snowflakes
+var snowmaxsize=30
+// Set the minimal-size of your snowflakes
+var snowminsize=8
+// Set the snowing-zone
+// Set 1 for all-over-snowing, set 2 for left-side-snowing
+// Set 3 for center-snowing, set 4 for right-side-snowing
+var snowingzone=1
+///////////////////////////////////////////////////////////////////////////
+var snow=new Array()
+var marginbottom
+var marginright
+var timer
+var i_snow=0
+var x_mv=new Array();
+var crds=new Array();
+var lftrght=new Array();
+var browserinfos=navigator.userAgent
+var ie5=document.all&&document.getElementById&&!browserinfos.match(/Opera/)
+var ns6=document.getElementById&&!document.all
+var opera=browserinfos.match(/Opera/)
+var browserok=ie5||ns6||opera
+ 
+function randommaker(range) {
+        rand=Math.floor(range*Math.random())
+    return rand
+}
+ 
+function initsnow() {
+        if (ie5 || opera) {
+                marginbottom = document.body.scrollHeight
+                marginright = document.body.clientWidth-15
+        }
+        else if (ns6) {
+                marginbottom = document.body.scrollHeight
+                marginright = window.innerWidth-15
+        }
+        var snowsizerange=snowmaxsize-snowminsize
+        for (i=0;i<=snowmax;i++) {
+                crds[i] = 0;
+            lftrght[i] = Math.random()*15;
+            x_mv[i] = 0.03 + Math.random()/10;
+                snow[i]=document.getElementById("s"+i)
+                snow[i].style.fontFamily=snowtype[randommaker(snowtype.length)]
+                snow[i].size=randommaker(snowsizerange)+snowminsize
+                snow[i].style.fontSize=snow[i].size+'px';
+                snow[i].style.color=snowcolor[randommaker(snowcolor.length)]
+                snow[i].style.zIndex=1000
+                snow[i].sink=sinkspeed*snow[i].size/5
+                if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+                if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+                if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+                if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+                snow[i].posy=randommaker(2*marginbottom-marginbottom-2*snow[i].size)    
+                snow[i].style.left=snow[i].posx+'px';
+                snow[i].style.top=snow[i].posy+'px';
+        }
+        movesnow()
+}
+ 
+function movesnow() {
+        for (i=0;i<=snowmax;i++) {
+                crds[i] += x_mv[i];
+                snow[i].posy+=snow[i].sink
+                snow[i].style.left=snow[i].posx+lftrght[i]*Math.sin(crds[i])+'px';
+                snow[i].style.top=snow[i].posy+'px';
+ 
+                if (snow[i].posy>=marginbottom-2*snow[i].size || parseInt(snow[i].style.left)>(marginright-3*lftrght[i])){
+                        if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+                        if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+                        if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+                        if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+                        snow[i].posy=0
+                }
+        }
+        var timer=setTimeout("movesnow()",50)
+}
+ 
+for (i=0;i<=snowmax;i++) {
+        document.write("<span id='s"+i+"' style='position:absolute;top:-"+snowmaxsize+"'>"+snowletter+"</span>")
+}
+if (browserok) {
+        window.onload=initsnow
+}
+var tips = new Array(8);
+tips[0] = "onepiece.mp3";
+tips[1] = "chess.mp3";
+tips[2] = "Doraemon.mp3";
+tips[3] = "Butterfly.mp3";
+tips[4] = "basketball.mp3";
+tips[5] = "SAO.mp3";
+tips[6] = "only.mp3";
+tips[7] = "secret_base.mp3";
+var index = Math.floor(Math.random() * tips.length);
+document.write("<EMBED SRC=" + tips[index] + " autostart=true width=0 height=0 loop=true></EMBED>");
+</script>
+  
+  <style>
+  	body{
+		margin:0px;
+		padding:0px;
+    background-color:rgb(250,240,250);
+		Font-family:Microsoft YaHei;
+
+
+  	}
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+	.bd{
+		border-bottom:1px solid #999;
+		padding-bottom:50px;
+	}
+	h3 img
+	{
+		margin-top:15px;
+	}
+	#body
+	{
+		width:1024px;
+		padding:0px;
+		margin:0 auto;
+		box-shadow:2px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+		border-left:1px solid #CCC;
+		border-right:1px solid #CCC;
+	}
+  </style>
+
+</head>
+
+<body>
+<div id="body">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Portfolio</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+  <a href="index.html">
+    <img src="/static/image/title.jpg" alt="/static/image/title.jpg" style="width:80%;">
+  </a>
+  </div>
+</div>
+
+
+<gcse:search></gcse:search>
+<div class="container-fluid bg-3 text-center bd">    
+  <h1 style="color:red; font-weight:bold;">熱門動漫</h1><br>
+  <div class="row">
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="naruto.html">火影忍者
+      <img src="/static/image/NARUTO.png" alt="/static/image/NARUTO.png" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="one_piece.html">海賊王
+      <img src="/static/image/ONE_PIECE.jpg" alt="/static/image/ONE_PIECE.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="giant.html">進擊的巨人
+      <img src="/static/image/GIANT.jpg" alt="/static/image/GIANT.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="hunter.html">獵人
+      <img src="/static/image/HUNTER.jpg" alt="/static/image/HUNTER.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+  </div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center bd">    
+  <div class="row">
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="Doraemon.html">哆啦A夢劇場版
+      <img src="/static/image/Doraemon.jpg" alt="/static/image/Doraemon.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="no1.html">第一神拳
+      <img src="/static/image/FIGHTING.jpg" alt="/static/image/FIGHTING.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="SAO1.html">刀劍神域
+      <img src="/static/image/SWORD.jpg" alt="/static/image/SWORD.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="gate.html">GATE 奇幻自衛隊
+      <img src="/static/image/gate.JPG" alt="/static/image/gate.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+  </div>
+</div><br><br>
+<div class="container-fluid bg-3 text-center bd">    
+  <div class="row">
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="classroom.html">暗殺教室
+      <img src="/static/image/classroom.jpg" alt="classroom.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="noName.html">未聞花名
+      <img src="/static/image/noName.jpg" alt="/static/image/noName.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="beautifulWorld.html">美好的世界獻上祝福
+      <img src="/static/image/beautifulWorld.jpg" alt="/static/image/beautifulWorld.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="mysister.html">我的妹妹哪這麼可愛
+      <img src="/static/image/mysister.JPG" alt="/static/image/mysister.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+  </div>
+</div><br><br>
+<div class="container-fluid bg-3 text-center bd">    
+  <div class="row">
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="Strongest1.html">史上最強弟子兼一
+      <img src="/static/image/Strongest.jpg" alt="/static/image/Strongest.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="food_war.html">食戟之靈
+      <img src="/static/image/Eat.jpg" alt="/static/image/Eat.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3"> 
+      <h3><a style="color:blue" href="oneman.html">一拳超人
+      <img src="/static/image/oneman.jpg" alt="/static/image/oneman.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+    <div class="col-sm-3">
+      <h3><a style="color:blue" onclick="a=confirm('你是否已成年??');if(a)location.replace('http://www.w3schools.com')">H漫專區
+      <img src="/static/image/18.jpg" alt="/static/image/18.jpg" class="img-responsive" style="width:100%" alt="Image">
+      </a></h3>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid bg-3 text-center bd">    
+  <div class="row">
+  {% for film in films %}
+    <div class="col-sm-3">
+      <h3><a style="color:blue" href="/static/html/{{film.url}}">{{film.name}}
+      <img src="/static/image/{{film.picture}}" alt="{{film.picture}}" class="img-responsive" style="width:100%" alt="Image"></a></h3>
+    </div>
+    {% endfor %}
+    
+  </div>
+</div>
+
+
+<div class="container-fluid bg-3 text-center" style="background-color:#333; color:#CCC; height:80px;">
+	<p style="margin-top:15px;text-align:left;font-size:16px">
+		注意事項:<br>
+1. 此網站是學術作業使用。<br>
+2.來源取自網路，若侵犯您的版權，請告知本人，將立即處理。
+	</p>
+</div>
+
+</div>
+</body>
+
+</html>
